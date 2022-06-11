@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack_conf/webpack.prod.js",
     "debug": "nodemon --inspect index.js",
-    "start": "node index.mjs",
+    "start": "node index.js",
     "watch-webpack": "webpack --watch --config webpack_conf/webpack.dev.js",
     "watch": "concurrently \"nodemon index.js\" \"npm run watch-webpack\""
   },
