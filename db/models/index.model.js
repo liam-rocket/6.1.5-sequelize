@@ -1,5 +1,6 @@
 /* eslint-disable comma-dangle */
 import { Sequelize } from "sequelize";
+import url from "url";
 import allConfig from "../../sequelize.config.cjs";
 
 import initItemModel from "./item.mjs";
