@@ -48,13 +48,11 @@
     "sequelize-cli": "^6.2.0",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
-    "webpack-merge": "^5.7.3"
+    "webpack-merge": "^5.7.3",
+    "cookie-parser": "^1.4.6"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.0.0",
-    "axios": "^0.21.1",
-    "cookie-parser": "^1.4.6",
-    "ejs": "^3.1.5",
     "method-override": "^3.0.0",
     "sequelize-cli": "^6.4.1"
   }
