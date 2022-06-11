@@ -1,26 +1,43 @@
 /* eslint-disable comma-dangle */
-import { Sequelize } from 'sequelize';
-import allConfig from '../../sequelize.config.cjs';
+import { Sequelize } from "sequelize";
+import allConfig from "../../sequelize.config.cjs";
 
-import initItemModel from './item.mjs';
-import initCategoryModel from './category.mjs';
+import initItemModel from "./item.mjs";
+import initCategoryModel from "./category.mjs";
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || "development";
 // this is the same as saying :
 // const config = allConfig['development']
 const config = allConfig[env];
 const db = {};
 
+let sequelize;
+
+if (env === "production") {
+  // Break apart the Heroku database url and rebuild the configs we need
+  const { DATABASE_URL } = process.env;
+  const dbUrl = url.parse(DATABASE_URL);
+  const username = dbUrl.auth.substr(0, dbUrl.auth.indexOf(":"));
+  const password = dbUrl.auth.substr(
+    dbUrl.auth.indexOf(":") + 1,
+    dbUrl.auth.length
+  );
+  const dbName = dbUrl.path.slice(1);
+  const host = dbUrl.hostname;
+  const { port } = dbUrl;
+  config.host = host;
+  config.port = port;
+  sequelize = new Sequelize(dbName, username, password, config);
+} else {
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
+}
 // initiate a new instance of Sequelize
 // note similarity to pool.query
-
-const sequelize = new Sequelize(
-  // database settings from config.js
-  config.database,
-  config.username,
-  config.password,
-  config
-);
 
 // here we are putting initItemModel from item.mjs into the object "db" (line 14)
 db.Item = initItemModel(sequelize, Sequelize.DataTypes);
